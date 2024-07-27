@@ -43,17 +43,17 @@ class Provider extends AbstractProvider
     /**
      * @var string
      */
-    public const OPENID_SIG = 'openid_sig';
+    public const OPENID_SIG = 'openid.sig';
 
     /**
      * @var string
      */
-    public const OPENID_SIGNED = 'openid_signed';
+    public const OPENID_SIGNED = 'openid.signed';
 
     /**
      * @var string
      */
-    public const OPENID_ASSOC_HANDLE = 'openid_assoc_handle';
+    public const OPENID_ASSOC_HANDLE = 'openid.assoc_handle';
 
     /**
      * @var string
@@ -63,7 +63,7 @@ class Provider extends AbstractProvider
     /**
      * @var string
      */
-    public const OPENID_ERROR = 'openid_error';
+    public const OPENID_ERROR = 'openid.error';
 
     /**
      * {@inheritdoc}
@@ -170,7 +170,7 @@ class Provider extends AbstractProvider
             return false;
         }
 
-        if (! $this->validateHost($this->request->get('openid_return_to'))) {
+        if (! $this->validateHost($this->request->get('openid.return_to'))) {
             throw new OpenIDValidationException('Invalid return_to host');
         }
 
@@ -244,7 +244,7 @@ class Provider extends AbstractProvider
         $signedParams = explode(',', $this->request->get(self::OPENID_SIGNED));
 
         foreach ($signedParams as $item) {
-            $value = $this->request->get('openid_'.str_replace('.', '_', $item));
+            $value = $this->request->get('openid.'.str_replace('.', '_', $item));
             $params['openid.'.$item] = $value;
         }
 
@@ -283,7 +283,7 @@ class Provider extends AbstractProvider
     {
         preg_match(
             '#^https?://steamcommunity.com/openid/id/([0-9]{17,25})#',
-            $this->request->get('openid_claimed_id'),
+            $this->request->get('openid.claimed_id'),
             $matches
         );
 
